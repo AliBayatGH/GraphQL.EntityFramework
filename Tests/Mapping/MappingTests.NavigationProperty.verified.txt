@@ -1,0 +1,13 @@
+{
+  expression: context => context.Source.Parent,
+  result: {
+    Id: Guid_1,
+    Property: value,
+    Children: [
+      {
+        Id: Guid_2,
+        ParentId: Guid_1
+      }
+    ]
+  }
+}

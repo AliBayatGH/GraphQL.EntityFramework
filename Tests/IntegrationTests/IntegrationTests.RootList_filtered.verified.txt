@@ -1,0 +1,19 @@
+﻿{
+  target:
+{
+  "data": {
+    "parentEntitiesFiltered": [
+      {
+        "property": "Value1"
+      }
+    ]
+  }
+},
+  sql: [
+    {
+      Text:
+SELECT [f].[Id], [f].[Property]
+FROM [FilterParentEntities] AS [f]
+    }
+  ]
+}

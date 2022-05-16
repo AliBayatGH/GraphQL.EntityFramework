@@ -1,0 +1,67 @@
+﻿schema {
+  query: MappingQuery
+}
+
+enum Comparison {
+  contains
+  endsWith
+  equal
+  greaterThan
+  greaterThanOrEqual
+  notIn
+  in
+  lessThan
+  lessThanOrEqual
+  like
+  startsWith
+}
+
+enum Connector {
+  and
+  or
+}
+
+type MappingChild {
+  parent: MappingParent!
+  id: ID!
+  parentId: ID!
+  property: String
+}
+
+type MappingParent {
+  children(id: ID, ids: [ID!], where: [WhereExpression!], orderBy: [OrderBy!], skip: Int, take: Int): [MappingChild!]!
+  id: ID!
+  jsonProperty: [String!]!
+  property: String
+}
+
+type MappingQuery {
+  child(id: ID, ids: [ID!], where: [WhereExpression!]): MappingChild!
+  children(id: ID, ids: [ID!], where: [WhereExpression!], orderBy: [OrderBy!], skip: Int, take: Int): [MappingChild!]!
+  parent(id: ID, ids: [ID!], where: [WhereExpression!]): MappingParent!
+  parents(id: ID, ids: [ID!], where: [WhereExpression!], orderBy: [OrderBy!], skip: Int, take: Int): [MappingParent!]!
+}
+
+input OrderBy {
+  path: String!
+  descending: Boolean
+}
+
+enum StringComparison {
+  CURRENT_CULTURE
+  CURRENT_CULTURE_IGNORE_CASE
+  INVARIANT_CULTURE
+  INVARIANT_CULTURE_IGNORE_CASE
+  ORDINAL
+  ORDINAL_IGNORE_CASE
+}
+
+input WhereExpression {
+  path: String
+  comparison: Comparison
+  negate: Boolean
+  case: StringComparison
+  value: [String]
+  connector: Connector
+  groupedExpressions: [WhereExpression]
+}

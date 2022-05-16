@@ -1,0 +1,104 @@
+﻿type Company {
+  employees(id: ID, ids: [ID!], where: [WhereExpression!], orderBy: [OrderBy!], skip: Int, take: Int): [Employee!]!
+  employeesConnection(after: String, first: Int, before: String, last: Int, where: [WhereExpression!], orderBy: [OrderBy!], ids: [ID!]): EmployeeConnection!
+  content: String
+  id: Int!
+}
+
+type CompanyConnection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [CompanyEdge]
+  items: [Company!]
+}
+
+type CompanyEdge {
+  cursor: String!
+  node: Company!
+}
+
+enum Comparison {
+  contains
+  endsWith
+  equal
+  greaterThan
+  greaterThanOrEqual
+  notIn
+  in
+  lessThan
+  lessThanOrEqual
+  like
+  startsWith
+}
+
+enum Connector {
+  and
+  or
+}
+
+type Employee {
+  company: Company!
+  age: Int!
+  companyId: Int!
+  content: String
+  id: Int!
+}
+
+type EmployeeConnection {
+  totalCount: Int
+  pageInfo: PageInfo!
+  edges: [EmployeeEdge]
+  items: [Employee!]
+}
+
+type EmployeeEdge {
+  cursor: String!
+  node: Employee!
+}
+
+type EmployeeSummary {
+  averageAge: Float!
+  companyId: Int!
+}
+
+input OrderBy {
+  path: String!
+  descending: Boolean
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  companies(id: ID, ids: [ID!], where: [WhereExpression!], orderBy: [OrderBy!], skip: Int, take: Int): [Company!]!
+  company(id: ID, ids: [ID!], where: [WhereExpression!]): Company!
+  companyOrNull(id: ID, ids: [ID!], where: [WhereExpression!]): Company
+  companiesConnection(after: String, first: Int, before: String, last: Int, where: [WhereExpression!], orderBy: [OrderBy!], ids: [ID!]): CompanyConnection!
+  employees(id: ID, ids: [ID!], where: [WhereExpression!], orderBy: [OrderBy!], skip: Int, take: Int): [Employee!]!
+  employeesByArgument(id: ID, ids: [ID!], where: [WhereExpression!], orderBy: [OrderBy!], skip: Int, take: Int, content: String): [Employee!]!
+  employeesConnection(after: String, first: Int, before: String, last: Int, where: [WhereExpression!], orderBy: [OrderBy!], ids: [ID!]): EmployeeConnection!
+  employeeSummary(where: [WhereExpression]): [EmployeeSummary]
+}
+
+enum StringComparison {
+  CURRENT_CULTURE
+  CURRENT_CULTURE_IGNORE_CASE
+  INVARIANT_CULTURE
+  INVARIANT_CULTURE_IGNORE_CASE
+  ORDINAL
+  ORDINAL_IGNORE_CASE
+}
+
+input WhereExpression {
+  path: String
+  comparison: Comparison
+  negate: Boolean
+  case: StringComparison
+  value: [String]
+  connector: Connector
+  groupedExpressions: [WhereExpression]
+}

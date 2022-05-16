@@ -1,0 +1,14 @@
+﻿{
+  "data": {
+    "employeeSummary": [
+      {
+        "companyId": 1,
+        "averageAge": 28
+      },
+      {
+        "companyId": 4,
+        "averageAge": 17
+      }
+    ]
+  }
+}
